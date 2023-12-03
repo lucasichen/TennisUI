@@ -1,0 +1,5 @@
+/* Add this to your CSS file or style block */
+.hover-cell:hover {
+  background-color: #f0f0f0;
+  /* or any other shade of grey you prefer */
+}
