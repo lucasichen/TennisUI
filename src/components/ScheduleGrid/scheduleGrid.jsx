@@ -45,7 +45,7 @@ const ScheduleGrid = () => {
         alignItems: 'center',
         p: '10%',
       }}>
-      <Typography variant="h3" align="center" sx={{p:5}}>Tennis Weekly Schedule</Typography>
+      <Typography variant="h3" align="center" sx={{ p: 5 }}>Tennis Weekly Schedule</Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -57,18 +57,20 @@ const ScheduleGrid = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {people.map((person) => (
+            {people.map((person, row) => (
               <TableRow key={person}>
                 <TableCell style={{ background: 'lightblue' }} sx={{ fontWeight: 'bold' }}>{person}</TableCell>
                 {daysOfWeek.map((day, index) => (
                   <TableCell
                     key={`${person}-${day}`}
                     onClick={() => handleCellClick(day, person)}
-                    style={{ cursor: 'pointer', borderBottom: '5px dashed #faf0e6', padding: '8px',
-                    ...(day !== 'Sunday' && index !== 0 && { borderLeft: '5px dashed #faf0e6' })}}
+                    style={{
+                      cursor: 'pointer', padding: '8px',
+                      ...(row !== 0 && { borderTop: '5px dashed #faf0e6' }),
+                      ...(day !== 'Sunday' && index !== 0 && { borderLeft: '5px dashed #faf0e6' })
+                    }}
                     className="hover-cell"
                   >
-                    {/* Render content inside each cell */}
                   </TableCell>
                 ))}
               </TableRow>
