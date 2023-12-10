@@ -1,38 +1,116 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { getTennisSchedules, getPickelballSchedules } from '../service/schedule.service';
 
 export const useSchedule = () => {
-  // const [schedule, setSchedule] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [selectedPerson, setSelectedPerson] = useState(null);
-  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [tennisSchedule, setTennisSchedule] = useState({});
+  const [pickleballSchedule, setPickleballSchedule] = useState({});
 
-  // useEffect(() => {
-  //   const fetchSchedule = async () => {
-  //     const response = await fetch('http://localhost:3000/schedule');
-  //     const data = await response.json();
-  //     setSchedule(data);
-  //   };
-  //   fetchSchedule();
-  // }, []);
+  const getTennis = useCallback(async () => {
+    const data = await getTennisSchedules();
+    setTennisSchedule(data);
+  }, []);
 
-  // const updateSchedule = async (day, person, task) => {
-  //   const response = await fetch('http://localhost:3000/schedule', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ day, person, task }),
-  //   });
-  //   const data = await response.json();
-  //   setSchedule(data);
-  // };
+  const getPickelball = useCallback(async () => {
+    const data = await getPickelballSchedules();
+    setPickleballSchedule(data);
+  }, []);
+
+  const onTennisScheduleChange = useCallback(async (data) => {
+    setTennisSchedule((prevSchedule) => {
+      const { day, person, time, courtNumber } = data;
+
+      // Check if the day exists in the schedule
+      if (prevSchedule[day]) {
+        // Check if the person already has a schedule on that day
+        if (prevSchedule[day][person]) {
+          // Update the existing schedule
+          prevSchedule[day][person] = { time, court: courtNumber };
+        } else {
+          // Add a new schedule for the person on that day
+          prevSchedule[day][person] = { time, court: courtNumber };
+        }
+      } else {
+        // If the day doesn't exist, add a new entry for the day and the person
+        prevSchedule[day] = { [person]: { time, court: courtNumber } };
+      }
+
+      console.log('Updated Tennis Schedule:', prevSchedule);
+      return { ...prevSchedule }; // Return a new object to trigger a state update
+    });
+  }, []);
+
+
+  const onPickleballScheduleChange = useCallback(async (data) => {
+    setPickleballSchedule((prevSchedule) => {
+      const { day, person, time, courtNumber } = data;
+
+      // Check if the day exists in the schedule
+      if (prevSchedule[day]) {
+        // Check if the person already has a schedule on that day
+        if (prevSchedule[day][person]) {
+          // Update the existing schedule
+          prevSchedule[day][person] = { time, court: courtNumber };
+        } else {
+          // Add a new schedule for the person on that day
+          prevSchedule[day][person] = { time, court: courtNumber };
+        }
+      } else {
+        // If the day doesn't exist, add a new entry for the day and the person
+        prevSchedule[day] = { [person]: { time, court: courtNumber } };
+      }
+
+      console.log('Updated Pickleball Schedule:', prevSchedule);
+      return { ...prevSchedule }; // Return a new object to trigger a state update
+    });
+  }, []);
+
+  const onDeleteTennisSchedule = useCallback(async (data) => {
+    setTennisSchedule((prevSchedule) => {
+      const { day, person } = data;
+
+      // Check if the day exists in the schedule
+      if (prevSchedule[day]) {
+        // Check if the person already has a schedule on that day
+        if (prevSchedule[day][person]) {
+          // Update the existing schedule
+          delete prevSchedule[day][person];
+        }
+      }
+
+      console.log('Updated Tennis Schedule:', prevSchedule);
+      return { ...prevSchedule }; // Return a new object to trigger a state update
+    });
+  }, []);
+
+  const onDeletePickleballSchedule = useCallback(async (data) => {
+    setPickleballSchedule((prevSchedule) => {
+      const { day, person } = data;
+
+      // Check if the day exists in the schedule
+      if (prevSchedule[day]) {
+        // Check if the person already has a schedule on that day
+        if (prevSchedule[day][person]) {
+          // Update the existing schedule
+          delete prevSchedule[day][person];
+        }
+      }
+
+      console.log('Updated Pickleball Schedule:', prevSchedule);
+      return { ...prevSchedule }; // Return a new object to trigger a state update
+    });
+  }, []);
+
+  useEffect(() => {
+    getTennis();
+    getPickelball();
+  }, [getTennis, getPickelball]);
 
   return {
-    // schedule,
-    selectedDay,
-    selectedPerson,
-    isDialogOpen,
-    setSelectedDay,
-    setSelectedPerson,
-    setDialogOpen,
-    // updateSchedule,
+    tennisSchedule,
+    pickleballSchedule,
+    onTennisScheduleChange,
+    onPickleballScheduleChange,
+    onDeleteTennisSchedule,
+    onDeletePickleballSchedule,
   }
 };

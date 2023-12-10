@@ -9,12 +9,16 @@ import {
   Typography,
   Grid,
   MenuItem,
+  Box
 } from '@mui/material';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 
-const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
+const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData, onTennisScheduleChange, onDelete }) => {
   const methods = useForm();
   const { watch, handleSubmit } = methods;
+
+  const isValid = watch('courtNumber') === '' || watch('time') === '' ? false : true;
+  const isDirty = watch('courtNumber') !== editData?.court || watch('time') !== editData?.time ? true : false;
 
   const timeOptions = Array.from({ length: 36 }, (_, index) => {
     const halfHour = index % 2 === 0;
@@ -28,15 +32,21 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
     return { label, value };
   });
 
-  const handleCancel = () => {
+  const handleCancel = (event, reason) => {
     // Reset the form values
     methods.reset();
     // Close the dialog
     onClose();
+
+  };
+
+  const handelDelete = () => {
+    onDelete({ day: selectedDay, person: selectedPerson });
+    onClose();
   };
 
   const onSubmit = (data) => {
-    console.log(data, selectedPerson, selectedDay);
+    onTennisScheduleChange({ ...data, day: selectedDay, person: selectedPerson });
     onClose();
   };
 
@@ -50,7 +60,6 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
     <Dialog
       open={isOpen}
       onClose={handleCancel}
-      onBackdropClick={handleCancel}
       sx={{
         backdropFilter: "blur(5px) sepia(5%)",
         "& .MuiDialog-paper": {
@@ -90,7 +99,7 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
               <Controller
                 name="courtNumber"
                 control={methods.control}
-                defaultValue=""
+                defaultValue={editData?.court || ''}
                 render={({ field }) => (
                   <TextField
                     {...field}
@@ -106,7 +115,7 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
               <Controller
                 name="time"
                 control={methods.control}
-                defaultValue=""
+                defaultValue={editData?.time || ''}
                 render={({ field }) => (
                   <TextField
                     select
@@ -127,24 +136,34 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay }) => {
           </Grid>
         </FormProvider>
       </DialogContent>
-      <DialogActions sx={{ p: 2 }}>
+      <DialogActions sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}>
         <Button
-          onClick={handleCancel}
-          variant="outlined"
+          onClick={handelDelete}
+          variant="contained"
           color="error"
           sx={{ borderRadius: '4px' }}
         >
-          Cancel
+          Delete
         </Button>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          variant="contained"
-          color="success"
-          sx={{ borderRadius: '4px' }}
-          disabled={watch('courtNumber') !== '' && watch('time') !== '' ? false : true}
-        >
-          Save
-        </Button>
+        <div>
+          <Button
+            onClick={handleCancel}
+            variant="outlined"
+            color="error"
+            sx={{ borderRadius: '4px', marginRight: '8px' }} // Add margin to separate from the Save button
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            variant="contained"
+            color="success"
+            sx={{ borderRadius: '4px' }}
+            disabled={!(isValid && isDirty)}
+          >
+            Save
+          </Button>
+        </div>
       </DialogActions>
     </Dialog>
   );
