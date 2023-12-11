@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Tab, Box } from '@mui/material';
+import { Tab, Box, Button, Typography } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
 import ScheduleGrid from '../../components/ScheduleGrid';
 import { useSchedule } from '../../hooks/useSchedule';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useUsers } from '../../hooks/useUsers';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ScheduleTabs = () => {
   const [value, setValue] = useState('1');
@@ -19,13 +20,17 @@ const ScheduleTabs = () => {
     onDeleteTennisSchedule,
     onDeletePickleballSchedule,
   } = useSchedule();
+  const { logout } = useAuth0();
 
   return (
     <Box>
       <TabContext value={value}>
-        <TabList onChange={handleChange}>
+        <TabList onChange={handleChange} sx={{ p: 2 }}>
           <Tab label="Tennis" value="1" />
           <Tab label="Pickleball" value="2" />
+          <Button color="inherit" variant="contained" onClick={() => logout({ returnTo: window.location.origin })}>
+            Logout
+          </Button>
         </TabList>
         <TabPanel value="1">
           {isLoading && usersLoading ? ( // Check if loading, render loading indicator

@@ -1,13 +1,12 @@
 // App.js
 import React from 'react';
 import ScheduleTabs from './pages/ScheduleTabs';
-import { Box } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
-  const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout } =
-    useAuth0();
+  const { isLoading, isAuthenticated, error, user, loginWithRedirect } = useAuth0();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,13 +25,37 @@ function App() {
         }}
       >
         <Box style={{ background: '#faf0e6' }} height='100vh' width="100%">
-          <button onClick={() => logout({ returnTo: window.location.origin })}> Log out </button>
           <ScheduleTabs />
         </Box>
       </SnackbarProvider>
     )
   } else {
-    return <button onClick={loginWithRedirect}>Log in</button>;
+    return (
+      <Box
+        height='100vh'
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Box
+          sx={{
+            border: 1,
+            textAlign: 'center',
+            padding: 2,
+            maxWidth: 400,
+          }}
+        >
+          <Typography variant="h4" gutterBottom>
+            Welcome to the Tennis and Pickleball Scheduler
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Please log in to continue
+          </Typography>
+          <Button variant="contained" onClick={loginWithRedirect}>Log in</Button>
+        </Box>
+      </Box>
+    )
   }
 }
 
