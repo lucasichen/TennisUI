@@ -18,7 +18,8 @@ import { daysOfWeek, people } from '../../constants/constants';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
+const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
+  const usersArray = Object.values(users);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [personsSchedule, setPersonsSchedule] = useState();
@@ -27,8 +28,8 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
   const handleCellClick = async (day, person) => {
     setSelectedDay(day);
     setSelectedPerson(person);
-    if (schedule && schedule[day] && schedule[day][person]) {
-      await setPersonsSchedule(schedule[day][person]);
+    if (schedule && schedule[day] && schedule[day][person.name]) {
+      await setPersonsSchedule(schedule[day][person.name]);
     } else {
       await setPersonsSchedule(null);
     }
@@ -36,6 +37,8 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
   };
 
   const handleDialogClose = () => {
+    setSelectedDay(null);
+    setSelectedPerson(null);
     setDialogOpen(false);
   };
   const theme = useTheme();
@@ -61,7 +64,6 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
         {title} Weekly Schedule
       </Typography>
 
-
       {(isMobile || isMd) ? (
         <TableContainer component={Paper}>
           <Table>
@@ -84,21 +86,21 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {people.map((person, row) => (
-                <TableRow key={person}>
+              {usersArray.map((person, row) => (
+                <TableRow key={person.name}>
                   <TableCell
                     style={{ background: 'lightblue' }}
                     sx={{ fontWeight: 'bold' }}
                   >
-                    {person}
+                    {person.name}
                   </TableCell>
                   {daysOfWeek.map((day, index) => {
                     const isScheduleDefined =
-                      schedule && schedule[day] && schedule[day][person];
+                      schedule && schedule[day] && schedule[day][person.name];
 
                     return (
                       <TableCell
-                        key={`${person}-${day}`}
+                        key={`${person.id}-${day}`}
                         onClick={() => handleCellClick(day, person)}
                         style={{
                           cursor: 'pointer',
@@ -119,7 +121,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
                                 backgroundColor: 'rgba(144, 238, 144)',
                               }}
                             >
-                              Court: {schedule[day][person].court}
+                              Court: {schedule[day][person.name].court}
                             </Typography>
                             <Typography
                               variant="body1"
@@ -129,7 +131,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
                                 backgroundColor: 'rgba(144, 238, 144)',
                               }}
                             >
-                              {schedule[day][person].time}
+                              {schedule[day][person.name].time}
                             </Typography>
                           </Box>
                         ) : (
@@ -221,8 +223,9 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete }) => {
         selectedPerson={selectedPerson}
         selectedDay={selectedDay}
         editData={personsSchedule}
-        onTennisScheduleChange={onSubmit}
+        onTypeSubmit={onSubmit}
         onDelete={onDelete}
+        type={type}
       />
     </Box>
   );

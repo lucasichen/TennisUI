@@ -1,4 +1,4 @@
-export const tennisCourt = {
+export const tennisCourts = {
   "1": {
     "surface-reserve": 4,
   },
@@ -43,7 +43,7 @@ export const tennisCourt = {
   },
 }
 
-export const pickleballCourt = {
+export const pickleballCourts = {
   "1": {
     "surface-reserve": 4,
   },

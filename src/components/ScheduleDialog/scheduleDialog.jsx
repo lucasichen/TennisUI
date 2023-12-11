@@ -9,11 +9,13 @@ import {
   Typography,
   Grid,
   MenuItem,
-  Box
 } from '@mui/material';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { tennisCourts, pickleballCourts } from '../../constants/courtData';
 
-const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData, onTennisScheduleChange, onDelete }) => {
+const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData, onTypeSubmit, onDelete, type }) => {
+  const name = selectedPerson?.name;
+  const id = selectedPerson?.id;
   const methods = useForm();
   const { watch, handleSubmit } = methods;
 
@@ -32,6 +34,19 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
     return { label, value };
   });
 
+  let courtOptions = [];
+  if (type === 'tennis') {
+    courtOptions = Object.entries(tennisCourts).map(([courtId, courtData]) => ({
+      label: courtId,
+      value: courtId,
+    }));
+  } else {
+    courtOptions = Object.entries(pickleballCourts).map(([courtId, courtData]) => ({
+      label: courtId,
+      value: courtId,
+    }));
+  }
+
   const handleCancel = (event, reason) => {
     // Reset the form values
     methods.reset();
@@ -46,7 +61,7 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
   };
 
   const onSubmit = (data) => {
-    onTennisScheduleChange({ ...data, day: selectedDay, person: selectedPerson });
+    onTypeSubmit({ ...data, day: selectedDay, person: selectedPerson });
     onClose();
   };
 
@@ -68,7 +83,7 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
       }}>
       <DialogTitle>
         <Typography variant="h4" component="div" sx={{ textAlign: 'center' }}>
-          {`Edit schedule for ${selectedPerson} on ${selectedDay}`}
+          {`Edit schedule for ${name} on ${selectedDay}`}
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ p: 2 }}>
@@ -80,7 +95,7 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
                 label="Host"
                 variant="outlined"
                 disabled
-                defaultValue={selectedPerson}
+                defaultValue={name}
                 fullWidth
               />
             </Grid>
@@ -102,11 +117,18 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
                 defaultValue={editData?.court || ''}
                 render={({ field }) => (
                   <TextField
+                    select
                     {...field}
                     label="Court Number"
                     variant="outlined"
                     fullWidth
-                  />
+                  >
+                    {courtOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 )}
               />
             </Grid>
