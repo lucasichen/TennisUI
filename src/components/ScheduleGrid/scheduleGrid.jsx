@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import './styles.css';
 import ScheduleDialog from '../ScheduleDialog';
-import { daysOfWeek, people } from '../../constants/constants';
+import { daysOfWeek } from '../../constants/constants';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -153,23 +153,23 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
             </Typography>
             <Table>
               <TableBody>
-                {people.map((person, row) => (
-                  <TableRow key={person}>
+                {usersArray.map((person, row) => (
+                  <TableRow key={person.name}>
                     <TableCell
                       style={{ background: 'lightblue' }}
                       sx={{ fontWeight: 'bold' }}
                     >
-                      {person}
+                      {person.name}
                     </TableCell>
                     {[day].map((d, index) => {
                       const isScheduleDefined =
-                        schedule && schedule[d] && schedule[d][person];
+                        schedule && schedule[d] && schedule[d][person.name];
 
                       return (
                         <TableCell
                           width='50%'
                           height="calc(100vh / 8)"
-                          key={`${person}-${d}`}
+                          key={`${person.id}-${d}`}
                           onClick={() => handleCellClick(d, person)}
                           style={{
                             cursor: 'pointer',
@@ -190,7 +190,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
                                   backgroundColor: 'rgba(144, 238, 144)',
                                 }}
                               >
-                                Court: {schedule[d][person].court}
+                                Court: {schedule[d][person.name].court}
                               </Typography>
                               <Typography
                                 variant="body1"
@@ -200,7 +200,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
                                   backgroundColor: 'rgba(144, 238, 144)',
                                 }}
                               >
-                                {schedule[d][person].time}
+                                {schedule[d][person.name].time}
                               </Typography>
                             </Box>
                           ) : (
