@@ -6,6 +6,5 @@ export const getFirebaseUsers = async () => {
     }
   });
   const data = await response.json();
-  console.log(data);
   return data;
 };
