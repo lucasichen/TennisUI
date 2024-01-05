@@ -19,8 +19,8 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
   const methods = useForm();
   const { watch, handleSubmit } = methods;
 
-  const isValid = watch('courtNumber') === '' || watch('time') === '' ? false : true;
-  const isDirty = watch('courtNumber') !== editData?.court || watch('time') !== editData?.time ? true : false;
+  const isValid = watch('courtNumber') === '' || watch('time') === '' || watch('duration') === '' ? false : true;
+  const isDirty = watch('courtNumber') !== editData?.court || watch('time') !== editData?.time || watch('duration') !== editData?.duration ? true : false;
 
   const timeOptions = Array.from({ length: 36 }, (_, index) => {
     const halfHour = index % 2 === 0;
@@ -151,6 +151,33 @@ const ScheduleDialog = ({ isOpen, onClose, selectedPerson, selectedDay, editData
                         {option.label}
                       </MenuItem>
                     ))}
+                  </TextField>
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              {/* Input for duration from 30, 60, 90 */}
+              <Controller
+                name="duration"
+                control={methods.control}
+                defaultValue={editData?.duration || ''}
+                render={({ field }) => (
+                  <TextField
+                    select
+                    {...field}
+                    label="Duration"
+                    variant="outlined"
+                    fullWidth
+                  >
+                    <MenuItem key={30} value={30}>
+                      30 minutes
+                    </MenuItem>
+                    <MenuItem key={60} value={60}>
+                      60 minutes
+                    </MenuItem>
+                    <MenuItem key={90} value={90}>
+                      90 minutes
+                    </MenuItem>
                   </TextField>
                 )}
               />

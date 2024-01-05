@@ -131,7 +131,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
                                 backgroundColor: 'rgba(144, 238, 144)',
                               }}
                             >
-                              {schedule[day][person.name].time}
+                              {schedule[day][person.name].time} for {schedule[day][person.name]?.duration || 90} min
                             </Typography>
                           </Box>
                         ) : (
@@ -200,7 +200,7 @@ const ScheduleGrid = ({ title, schedule, onSubmit, onDelete, users, type }) => {
                                   backgroundColor: 'rgba(144, 238, 144)',
                                 }}
                               >
-                                {schedule[d][person.name].time}
+                                {schedule[day][person.name].time} for {schedule[day][person.name]?.duration || 90} min
                               </Typography>
                             </Box>
                           ) : (

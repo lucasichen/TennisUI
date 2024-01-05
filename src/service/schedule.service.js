@@ -25,7 +25,8 @@ export const updateTennisSchedule = async (data) => {
     'day': data.day,
     'user': data.person.id,
     'time': data.time,
-    'court': data.courtNumber
+    'court': data.courtNumber,
+    'duration': data?.duration || '90'
   }
   const response = await fetch(process.env.REACT_APP_BASE_URL + 'api/schedule/tennis', {
     method: 'POST',
@@ -43,7 +44,8 @@ export const updatePickleballSchedule = async (data) => {
     'day': data.day,
     'user': data.person.id,
     'time': data.time,
-    'court': data.courtNumber
+    'court': data.courtNumber,
+    'duration': data?.duration || '90'
   }
   const response = await fetch(process.env.REACT_APP_BASE_URL + 'api/schedule/pickleball', {
     method: 'POST',
