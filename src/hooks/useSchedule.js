@@ -42,20 +42,20 @@ export const useSchedule = () => {
     try {
       await updateTennisSchedule(data);
       setTennisSchedule((prevSchedule) => {
-        const { day, person, time, courtNumber } = data;
+        const { day, person, time, courtNumber, duration } = data;
         // Check if the day exists in the schedule
         if (prevSchedule[day]) {
           // Check if the person already has a schedule on that day
           if (prevSchedule[day][person.name]) {
             // Update the existing schedule
-            prevSchedule[day][person.name] = { time, court: courtNumber };
+            prevSchedule[day][person.name] = { time, court: courtNumber, duration };
           } else {
             // Add a new schedule for the person on that day
-            prevSchedule[day][person.name] = { time, court: courtNumber };
+            prevSchedule[day][person.name] = { time, court: courtNumber, duration };
           }
         } else {
           // If the day doesn't exist, add a new entry for the day and the person
-          prevSchedule[day] = { [person.name]: { time, court: courtNumber } };
+          prevSchedule[day] = { [person.name]: { time, court: courtNumber, duration } };
         }
         return { ...prevSchedule }; // Return a new object to trigger a state update
       });
@@ -71,20 +71,20 @@ export const useSchedule = () => {
     try {
       await updatePickleballSchedule(data);
       setPickleballSchedule((prevSchedule) => {
-        const { day, person, time, courtNumber } = data;
+        const { day, person, time, courtNumber, duration } = data;
         // Check if the day exists in the schedule
         if (prevSchedule[day]) {
           // Check if the person already has a schedule on that day
           if (prevSchedule[day][person.name]) {
             // Update the existing schedule
-            prevSchedule[day][person.name] = { time, court: courtNumber };
+            prevSchedule[day][person.name] = { time, court: courtNumber, duration };
           } else {
             // Add a new schedule for the person on that day
-            prevSchedule[day][person.name] = { time, court: courtNumber };
+            prevSchedule[day][person.name] = { time, court: courtNumber, duration };
           }
         } else {
           // If the day doesn't exist, add a new entry for the day and the person
-          prevSchedule[day] = { [person.name]: { time, court: courtNumber } };
+          prevSchedule[day] = { [person.name]: { time, court: courtNumber, duration } };
         }
         return { ...prevSchedule }; // Return a new object to trigger a state update
       });

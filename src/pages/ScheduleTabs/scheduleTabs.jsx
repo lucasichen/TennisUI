@@ -28,7 +28,7 @@ const ScheduleTabs = () => {
         <TabList onChange={handleChange} sx={{ p: 2 }}>
           <Tab label="Tennis" value="1" />
           <Tab label="Pickleball" value="2" />
-          <Button color="inherit" variant="contained" onClick={() => logout({ returnTo: window.location.origin })}>
+          <Button color="inherit" variant="contained" onClick={() => logout({ returnTo: window.location.origin, clientId: process.env.REACT_APP_AUTH0_CLIENT_ID })}>
             Logout
           </Button>
         </TabList>
