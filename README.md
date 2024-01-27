@@ -5,10 +5,9 @@ Have you ever found yourself waking up before dawn just to secure a booking for 
 
 ![tennis_ui](https://github.com/lucasichen/TennisUI/assets/71472753/2f5cb385-2a72-4b36-b7ea-d5886111f39e)
 
-<details open>
-  <summary> My story</summary>
+# My Story
 
- ## 🚀 The Spark of Innovation
+## 🚀 The Spark of Innovation
 
 It all began with a simple question: "Why not automate this?" Inspired by the need to alleviate the early morning rush and the competitive nature of booking coveted courts, I set out to develop a solution that would streamline the process for everyone involved.
 
@@ -34,7 +33,6 @@ Phase 4 saw a focus on security, with efforts to integrate authentication and au
 ## 🌟 Celebrating Successes
 
 With each phase, the project evolved, driven by a commitment to innovation, collaboration, and continuous improvement. While bug fixes remain an ongoing task in Phase 5 and beyond, the journey thus far has been a testament to the power of perseverance and dedication in overcoming challenges and achieving success.
-</details>
 
 ### Built With
 * React Js (Frontend)
