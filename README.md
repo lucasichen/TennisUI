@@ -7,7 +7,7 @@ Have you ever found yourself waking up before dawn just to secure a booking for 
 
 # My Story
 
-## 🚀 The Spark of Innovation
+## ✨ The Spark of Innovation
 
 It all began with a simple question: "Why not automate this?" Inspired by the need to alleviate the early morning rush and the competitive nature of booking coveted courts, I set out to develop a solution that would streamline the process for everyone involved.
 
@@ -15,19 +15,19 @@ It all began with a simple question: "Why not automate this?" Inspired by the ne
 
 Embracing the concept of phased releases, a lesson learned during my co-op experience, I opted for an iterative approach rather than attempting to build a finished product all at once.
 
-### First iteration
+### 🚀 Starting off: Phase 1
 In Phase 1, I created an automated bot that would navigate the booking website and secure slots at 7:30 AM, leveraging GitLab's pipeline to initiate the script each morning. While effective, the reliance on a hardcoded JSON file for my parents' booking schedule posed challenges for adaptability.
 
-### 📅 Introducing a UI
+### 📅 Introducing a UI: Phase 2
 In Phase 2, I addressed this limitation by introducing a user-friendly UI, developed in React, allowing my parents to manage their schedule autonomously. The rollout of Phase 2 marked a significant milestone, empowering my parents to take control of their bookings with ease.
 
-### 📊 Elevating the Service
+### 📊 Elevating the Service: Phase 3
 However, the journey didn't end there. In Phase 3, I elevated the service further by eliminating the hardcoded JSON file and integrating a database, enabling seamless communication between the frontend, backend, and bot service. Additionally, I integrated SMS messaging via Twilio to provide real-time notifications of booking status, eliminating the need for manual verification and enhancing user experience. 📊📲
 
-### 🤝 Hiring a intern 
+### 🤝 Hiring a intern: Phase 3.5
 Phase 3.5 presented an invaluable learning opportunity as my brother, also a coder, joined the project during his winter break. Together, we fine-tuned algorithms, optimized code, and implemented database-driven configurations, further enhancing the efficiency and adaptability of the system. 
 
-### 🔐 Focus on Security
+### 🔐 Focus on Security: Phase 4
 Phase 4 saw a focus on security, with efforts to integrate authentication and authorization mechanisms using Auth0 logins and M2M tokens for service communication, ensuring the protection of user data and system integrity. 🔐
 
 ## 🌟 Celebrating Successes
