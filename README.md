@@ -39,3 +39,4 @@ With each phase, the project evolved, driven by a commitment to innovation, coll
 * Express Js (Backend)
 * Firebase (Database)
 * Playwright (Bot service)
+* Auth0 (Authentication service)
