@@ -1,4 +1,7 @@
 # Welcome to Alfred
+## Architecture/ Services 
+![tennis_booking](https://github.com/lucasichen/TennisUI/assets/71472753/9ca91e7e-8b5c-4280-bd21-28950e961679)
+
 ## 🎾 From Frustration to Innovation: My Journey Creating a Bot Booking Service 🤖
 
 Have you ever found yourself waking up before dawn just to secure a booking for your favorite activity? That was the reality for my parents, who had to set their alarms for 7:30 AM sharp every week just to reserve tennis courts in our local club. The competition was fierce, with numerous members vying for the same slots. Witnessing their struggle, I embarked on a journey to simplify this process through automation.
