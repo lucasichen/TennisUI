@@ -1,62 +1,71 @@
 export const tennisCourts = {
-  "1": {
+  1: {
     "surface-reserve": 4,
   },
-  "2": {
+  2: {
     "surface-reserve": 5,
   },
-  "3": {
+  3: {
     "surface-reserve": 6,
   },
-  "4": {
+  4: {
     "surface-reserve": 7,
   },
-  "5": {
+  5: {
     "surface-reserve": 8,
   },
-  "6": {
+  6: {
     "surface-reserve": 9,
   },
-  "9": {
+  9: {
     "surface-reserve": 17,
   },
-  "11": {
+  10: {
     "surface-reserve": 10,
   },
-  "12": {
+  11: {
     "surface-reserve": 11,
   },
-  "13": {
+  12: {
+    "surface-reserve": 12,
+  },
+  13: {
     "surface-reserve": 13,
   },
-  "14": {
+  14: {
     "surface-reserve": 14,
   },
-  "15": {
+  15: {
     "surface-reserve": 16,
   },
-  "16": {
+  16: {
     "surface-reserve": 15,
   },
-  "17": {
+  17: {
     "surface-reserve": 18,
   },
-}
+};
 
 export const pickleballCourts = {
-  "1": {
+  1: {
     "surface-reserve": 4,
   },
-  "2": {
+  2: {
     "surface-reserve": 5,
   },
-  "3": {
+  3: {
     "surface-reserve": 6,
   },
-  "4": {
+  4: {
     "surface-reserve": 7,
   },
-}
+  5: {
+    "surface-reserve": 8,
+  },
+  6: {
+    "surface-reserve": 9,
+  },
+};
 
 export const tennisLocationReserve = 1;
 export const pickleballLocationReserve = 43;
